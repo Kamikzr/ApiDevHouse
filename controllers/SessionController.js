@@ -14,7 +14,12 @@ class sessionController{
     async store(req, res,){
         const { email } = req.body; //chamando um obj json "email" (desconstrução de: req.body.email) 
 
-        let user = await User.create({ email }); //usando o db para criar a tabela ({email: email})
+        //verificando se esse email já existe
+        let user = await User.findOne({ email }); 
+
+        if(!user){
+            user = await User.create({ email }); //se não encontrar a tabela, cria uma
+        }
 
         return res.json({ user }); //retornando o item criado na tabela
     }
