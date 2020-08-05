@@ -3,12 +3,16 @@ const path = require('path');
 
 module.exports = {
     storage: multer.diskStorage({
-        destination: path.resolve(__dirname, '..', '..', 'Uploads'),
+        destination: path.resolve(__dirname, '..', '..', 'uploads'), //caminho de onde será armazenada a foto
+
+        //enviando a foto
         filename: (req, file, cb) => {
-            const ext = path.extname(file.originalname)
+            //preparando o nome da imagem
+            const ext = path.extname(file.originalname) //extensão da imagem
             const name = path.basename(file.originalname, ext);
 
-            cb(null, `${name}-${Date.now}${ext}`);
+            //chamando o callback
+            cb(null, `${name}-${Date.now()}${ext}`);
         },
     })
 }
